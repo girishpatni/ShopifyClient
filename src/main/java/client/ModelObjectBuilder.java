@@ -30,7 +30,6 @@ public class ModelObjectBuilder {
 			JsonObject order = jarray.get(i).getAsJsonObject();
 			JsonObject customer = order.getAsJsonObject("customer");
 			JsonArray lineItems = order.getAsJsonArray("line_items");
-			String orderId = order.get("id").getAsString();
 			String customerId = customer.get("id").getAsString();
 			String createdAt = order.get("created_at").getAsString();
 			String totalPrice = order.get("total_price").getAsString();
@@ -42,7 +41,7 @@ public class ModelObjectBuilder {
 				String productId = lineItemObject.get("product_id").getAsString();
 				itemList.add(createLineItem(itemPrice, itemId, productId));
 			}
-			orderList.add(createOrder(orderId, customerId, createdAt, totalPrice, itemList));
+			orderList.add(createOrder(customerId, createdAt, totalPrice, itemList));
 		}
 		return orderList;
 	}	
@@ -56,14 +55,13 @@ public class ModelObjectBuilder {
 		return item;
 	}
 
-	public static Order createOrder(String orderId, String customerId, String createdAt, String totalPrice,
+	public static Order createOrder(String customerId, String createdAt, String totalPrice,
 			List<LineItem> itemList) throws ParseException {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern(IConstants.DATE_FORMAT);
 		DateTime created = formatter.parseDateTime(createdAt);
 		BigDecimal total = new BigDecimal(totalPrice);
-		Long orderNum = Long.parseLong(orderId);
 		Long customerNum = Long.parseLong(customerId);
-		Order order = new Order(orderNum, customerNum, created, total, itemList);
+		Order order = new Order(customerNum, created, total, itemList);
 		return order;
 	}
 
