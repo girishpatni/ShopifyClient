@@ -1,6 +1,12 @@
 package client;
 
 import java.math.BigDecimal;
+/**
+ * @author Girish
+ * 
+ * Bare Minimum representation of Shopify LineItem object
+ *
+ */
 
 public class LineItem {
 	private final Long id;

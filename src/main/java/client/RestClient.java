@@ -10,20 +10,25 @@ import java.util.PriorityQueue;
 
 import org.joda.time.DateTime;
 
+/**
+ * @author Girish
+ * 
+ * Rest Client to Consume data from Shopify API
+ *
+ */
 public class RestClient {
 
-	public static void main(String[] args){
-		try{
-			APIConnector connector = new APIConnector();
-			List<Order> orderList = connector.getResponseFromServer();
+	public static void main(String[] args) {
+		try {
+			List<Order> orderList = new APIConnector().buildRequest(IConstants.BASE_URL).processRequest().getOrderFromResponse();
 			RestClient client = new RestClient();
-			System.out.println("Number of Orders:  "+client.getNumberOfOrders(orderList));
-			System.out.println("Number of customers:  "+client.getNumberOfCustomers(orderList));
-			System.out.println("Median Order value "+client.getMedianOrderValue(orderList));
+			System.out.println("Number of Orders:  " + client.getNumberOfOrders(orderList));
+			System.out.println("Number of customers:  " + client.getNumberOfCustomers(orderList));
+			System.out.println("Median Order value " + client.getMedianOrderValue(orderList));
 			client.printMostAndLeastOrderedItem(orderList);
-			System.out.println("Shortest Interval Difference In Millisecond :" + client.getShortestIntervalDiff(orderList));
-		}
-		catch(Exception e){
+			System.out.println(
+					"Shortest Interval Difference In Millisecond :" + client.getShortestIntervalDiff(orderList));
+		} catch (Exception e) {
 			System.out.println("Unable To Proceed.. Quitting");
 		}
 
@@ -44,6 +49,9 @@ public class RestClient {
 	private BigDecimal getMedianOrderValue(List<Order> orderList) {
 		int size = orderList.size();
 		BigDecimal median = new BigDecimal(0);
+		if (size < 1)
+			return median;
+		/* If number of Orders is Even*/
 		if ((size & 1) == 0) {
 			median = orderList.get((size - 1) / 2).getTotalPrice().add(orderList.get(size / 2).getTotalPrice());
 		} else {

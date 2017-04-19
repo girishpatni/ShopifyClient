@@ -6,7 +6,9 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 /**
- * @author Ghost
+ * @author Girish
+ * 
+ * Bare Minimum representation of Shopify Order o
  *
  */
 public class Order {

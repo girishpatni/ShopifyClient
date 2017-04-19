@@ -1,5 +1,11 @@
 package client;
 
+/**
+ * @author Girish
+ * 
+ * Constant String In the Application
+ *
+ */
 public interface IConstants {
 	public static final String BASE_URL = "https://100pure-demo.myshopify.com/admin/";
 	public static final String LIMIT_PARAM = "limit";
@@ -9,6 +15,6 @@ public interface IConstants {
 	public static final int START_PAGE = 1;
 	public static final String AUTH_HEADER_KEY = "X-Shopify-Access-Token";
 	public static final String AUTH_HEADER_VALUE = "b1ade8379e97603f3b0d92846e238ad8";
-	public static final String DATE_FORAMT = "yyyy-MM-dd'T'HH:mm:ssZ";
+	public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 
 }
