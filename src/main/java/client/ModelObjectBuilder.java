@@ -36,10 +36,9 @@ public class ModelObjectBuilder {
 			List<LineItem> itemList = new ArrayList<LineItem>(lineItems.size());
 			for (int j = 0; j < lineItems.size(); j++) {
 				JsonObject lineItemObject = lineItems.get(j).getAsJsonObject();
-				String itemPrice = lineItemObject.get("price").getAsString();
 				String itemId = lineItemObject.get("id").getAsString();
 				String productId = lineItemObject.get("product_id").getAsString();
-				itemList.add(createLineItem(itemPrice, itemId, productId));
+				itemList.add(createLineItem(itemId, productId));
 			}
 			orderList.add(createOrder(customerId, createdAt, totalPrice, itemList));
 		}
@@ -47,8 +46,7 @@ public class ModelObjectBuilder {
 	}	
 	
 
-	public static LineItem createLineItem(String itemPrice, String itemId, String productId) {
-		BigDecimal price = new BigDecimal(itemPrice);
+	public static LineItem createLineItem(String itemId, String productId) {
 		Long lineItemId = Long.parseLong(itemId);
 		Long productIdNew = Long.parseLong(productId);
 		LineItem item = new LineItem(lineItemId, price, productIdNew);
